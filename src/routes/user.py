@@ -5,6 +5,10 @@ from src.db.session import get_db
 from src.db.models import User
 from src.schemas.user import UserCreate, UserResponse
 from src.auth.utils import hash_password
+import logging
+from src.auth.dependencies import get_current_user
+
+logger = logging.getLogger(__name__)
 
 router  = APIRouter(prefix="/users", tags=["users"])
 
@@ -17,7 +21,7 @@ async def signup(user: UserCreate, db: AsyncSession = Depends(get_db)):
     if existing_user:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Username or email already exists")
     
-    # Create new user
+    # Create new user   
     new_user = User(
         username=user.username,
         email=user.email,
@@ -28,3 +32,8 @@ async def signup(user: UserCreate, db: AsyncSession = Depends(get_db)):
     await db.refresh(new_user)
     
     return new_user
+
+@router.get("/me", response_model=UserResponse)
+async def read_users_me(current_user: User = Depends(get_current_user)):
+    # If the code gets here, it means the token was valid!
+    return current_user
