@@ -1,0 +1,17 @@
+# Web Framework
+fastapi[standard]
+
+# Database & Migrations
+sqlalchemy[asyncio]
+asyncpg
+alembic
+psycopg[binary]
+
+# Validation & Settings
+pydantic-settings
+python-dotenv
+
+# Security (We will need these soon)
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart
