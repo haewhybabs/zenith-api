@@ -1,0 +1,1 @@
+CREATE DATABASE zenith_db_test;

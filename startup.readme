@@ -1,0 +1,4 @@
+- Activate virtual environment
+ - python3 -m venv venv
+ - docker compose up --build            (start my server)
+ - docker compose exec app pytest -v    (run test)
